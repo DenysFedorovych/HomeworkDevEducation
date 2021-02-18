@@ -1,48 +1,59 @@
 package com.github.strings;
 
 public class NumberParser {
-    public static String toString(int a){
+    public static String toString(long a) {
         StringBuilder res = new StringBuilder();
-        while(a!=0){
-            res.append(a%10);
-            a/=10;
+        boolean isNegative = false;
+        if (a == 0) {
+            return "0";
+        }
+        if (a < 0) {
+            a = Math.abs(a);
+            isNegative = true;
+        }
+        while (a != 0) {
+            res.append(a % 10);
+            a /= 10;
+        }
+        if (isNegative) {
+            res.append('-');
         }
         return res.reverse().toString();
     }
 
-    public static String toString(double a){
-        StringBuilder res = new StringBuilder();
-        int b = (int) a;
-        res.append(toString(b));
-        res.append('.');
-        a-=b;
-        while(a%10!=0) {a*=10;}
-        a/=10;
-        res.append(toString((int) a));
-        return res.toString();
+    public static String toString(Double a) {
+        return a.toString();
     }
 
-    public static int toNumber(String a){
-        int order = 1;
-        int result = 0;
-        for (int i = a.length()-1; i >=0; i--) {
-            result+= toDigit(a.charAt(i))*order;
-            order*=10;
+    public static long toNumber(String a) {
+        long order = 1;
+        long result = 0;
+        if (a.charAt(0) != '-') {
+            for (int i = a.length() - 1; i >= 0; i--) {
+                result += toDigit(a.charAt(i)) * order;
+                order *= 10;
+            }
+        } else {
+            for (int i = a.length() - 1; i > 0; i--) {
+                result += toDigit(a.charAt(i)) * order;
+                order *= 10;
+            }
+            result *= -1;
         }
         return result;
     }
 
-    private static int toDigit(char a){
+    private static long toDigit(char a) {
         return a - '0';
     }
 
-    public static double toNumberDouble(String a){
+    public static double toNumberDouble(String a) {
         double result = 0;
         String[] arr = a.split("\\.");
-        result +=toNumber(arr[0]);
+        result += toNumber(arr[0]);
         double b = toNumber(arr[1]);
-        b/= Math.pow(10,arr[1].length());
-        result+=b;
+        b /= Math.pow(10, arr[1].length());
+        result += b;
         return result;
     }
 
