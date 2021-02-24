@@ -1,8 +1,14 @@
 package com.github.oop;
 
 public class Device {
-    private Memory memory;
-    private Processor processor;
+    public Memory memory;
+
+    @Override
+    public String toString() {
+        return memory.getMemoryInfo() + processor.toString();
+    }
+
+    public Processor processor;
 
     public Device(Memory memory, Processor processor) {
         this.memory = memory;

@@ -2,13 +2,8 @@ package com.github.oop;
 
 public class ProcessorARM extends Processor{
 
-    private final String architecture = "ARM";
-
     public ProcessorARM(double frequency, double cache, int bitCapacity) {
-        super(frequency, cache, bitCapacity);
-    }
-
-    public ProcessorARM() {
+        super("ARM", frequency, cache, bitCapacity);
     }
 
     @Override

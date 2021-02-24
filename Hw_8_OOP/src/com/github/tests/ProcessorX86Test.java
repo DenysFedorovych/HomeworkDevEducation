@@ -1,5 +1,6 @@
-package com.github.oop;
+package com.github.tests;
 
+import com.github.oop.ProcessorX86;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
