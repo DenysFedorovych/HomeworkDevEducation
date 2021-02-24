@@ -77,5 +77,6 @@ public class WorkWithStrings {
     public static String deleteLastWord(String in){
         return in.trim().substring(0,in.lastIndexOf(' '));
     }
+    
 
 }
