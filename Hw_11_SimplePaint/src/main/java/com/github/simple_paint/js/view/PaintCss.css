@@ -1,0 +1,87 @@
+html{
+    overflow: hidden;
+}
+h3{
+    position: inherit;
+    left: 50%;
+    top: -30%;
+}
+.menu{
+    position: absolute;
+    background-color: #607247;
+    height: 40px;
+    width: 100%;
+}
+.color_red{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:0%;
+    background-color: red;
+}
+.color_orange{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:2%;
+    background-color: #b05814;
+}
+.color_yellow{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:4%;
+    background-color: yellow;
+}
+.color_green{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:6%;
+    background-color: green;
+}
+.color_lightblue{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:8%;
+    background-color: #3f9bb7;
+}
+.color_blue{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:10%;
+    background-color: blue;
+}
+.color_violet{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:12%;
+    background-color: #55329b;
+}
+.color_black{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left: 14%;
+    background-color: black;
+}
+.color_white{
+    position: inherit;
+    width: 2%;
+    height: 100%;
+    left:16%;
+    background-color: white;
+}
+#clear{
+    position: inherit;
+    left:18%;
+    padding-top: 0.5em;
+    text-align: center;
+    width:8%;
+    height: 80%;
+    background-color: #854545;
+}
+.background_color:hover{background-color: #545454;}
