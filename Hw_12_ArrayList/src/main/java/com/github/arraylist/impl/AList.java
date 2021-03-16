@@ -3,7 +3,6 @@ package com.github.arraylist.impl;
 import com.github.arraylist.IList;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class AList implements IList {
 
@@ -145,9 +144,8 @@ public class AList implements IList {
 
     }
 
-    //Test-1
+    //Test-4
 
-    //Test-3
 
     public int removeEnd() {
 
