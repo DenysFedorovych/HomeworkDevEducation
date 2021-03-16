@@ -25,8 +25,6 @@ public class AList implements IList {
 
     }
 
-    //TODO write tests
-
     private int newCapacity(int capacity) {
         return capacity * 3 / 2 + 1;
     }
