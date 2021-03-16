@@ -2,7 +2,7 @@ package com.github.arraylist;
 
 public interface IList {
 
-    void init(int[] init) throws IllegalArgumentException;
+    void init(int[] init);
 
     void clear();
 
@@ -14,9 +14,9 @@ public interface IList {
 
     void addEnd(int val);
 
-    void addByPos(int pos, int val) throws IllegalArgumentException;
+    void addByPos(int pos, int val);
 
-    int removeStart() throws IllegalArgumentException;
+    int removeStart();
 
     int removeEnd();
 

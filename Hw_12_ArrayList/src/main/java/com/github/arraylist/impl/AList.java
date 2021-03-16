@@ -68,6 +68,9 @@ public class AList implements IList {
 
     public void init(int[] init) {
 
+        if(init == null){
+            throw new IllegalArgumentException("Null argument");
+        }
         this.size = init.length;
         this.array = new Integer[newCapacity(this.size)];
         for (int i = 0; i < this.size; i++) {
@@ -77,7 +80,10 @@ public class AList implements IList {
     }
 
     public void clear() {
+
         this.array = new Integer[this.INITIAL_CAPACITY];
+        this.size = 0;
+
     }
 
     public int size() {
@@ -174,15 +180,28 @@ public class AList implements IList {
     }
 
     public int max() {
+
+        if(this.size == 0){
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         return this.array[maxPos()];
+
     }
 
     public int min() {
+
+        if(this.size == 0){
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         return this.array[minPos()];
+
     }
 
     public int maxPos() {
 
+        if(this.size == 0){
+            throw new IllegalArgumentException("Zero elements");
+        }
         int maxVal = this.array[0];
         int maxPos = 0;
         for (int i = 1; i < size; i++) {
@@ -197,6 +216,9 @@ public class AList implements IList {
 
     public int minPos() {
 
+        if(this.size == 0){
+            throw new IllegalArgumentException("Zero elements");
+        }
         int minVal = this.array[0];
         int minPos = 0;
         for (int i = 1; i < size; i++) {
@@ -211,8 +233,12 @@ public class AList implements IList {
 
     public int[] sort() {
 
-        Arrays.sort(this.array);
-        return this.toArray();
+        int[] sorted = this.toArray();
+        Arrays.sort(sorted);
+        for(int i = 0; i < size; i++){
+            this.array[i] = sorted[i];
+        }
+        return sorted;
 
     }
 
@@ -242,6 +268,7 @@ public class AList implements IList {
                     a[i + a.length / 2] = k;
                 }
             }
+            this.init(a);
             return a;
 
     }
@@ -255,6 +282,7 @@ public class AList implements IList {
             a[i] = a[a.length - 1 - i];
             a[a.length - 1 - i] = k;
         }
+        this.init(a);
         return a;
 
     }

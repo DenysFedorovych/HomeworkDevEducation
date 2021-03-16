@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-public class AListTest {
+public class LListTest {
 
     private static IList iList;
 
@@ -35,7 +35,7 @@ public class AListTest {
 
     @Before
     public void initialize() {
-        iList = new AList();
+        iList = new LList();
     }
 
 
