@@ -329,6 +329,14 @@ public class AListTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void addByPosException1(){
+
+        iList.init(ten);
+        iList.addByPos(-1,num1);
+
+    }
+
     //===========================================================================
     //============================ removeStart tests ============================
     //===========================================================================
