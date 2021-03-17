@@ -24,7 +24,7 @@ public class LList implements IList {
             return this.next;
         }
 
-        private void setValue(int val){
+        private void setValue(int val) {
             this.value = val;
         }
 
@@ -118,11 +118,12 @@ public class LList implements IList {
     public void addEnd(int val) {
 
         Node newFirst = new Node(val);
-        this.last.setNext(newFirst);
-        this.last = newFirst;
         if (this.size == 0) {
             this.first = newFirst;
+            this.last = newFirst;
         }
+        this.last.setNext(newFirst);
+        this.last = newFirst;
         this.size++;
 
     }
@@ -137,13 +138,17 @@ public class LList implements IList {
             addStart(val);
             return;
         }
+        if (pos == this.size) {
+            addEnd(val);
+            return;
+        }
         if (this.size == 0) {
             Node newOne = new Node(val);
             this.first = newOne;
             this.last = newOne;
             return;
         }
-        Node current = getNode(pos);
+        Node current = getNode(pos - 1);
         Node newOne = new Node(val);
         newOne.setNext(current.getNext());
         current.setNext(newOne);
@@ -157,9 +162,13 @@ public class LList implements IList {
         if (size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-
         int result = this.first.getValue();
-        this.first = this.first.getNext();
+        if (this.size == 1) {
+            this.first = null;
+            this.last = null;
+        } else {
+            this.first = this.first.getNext();
+        }
         this.size--;
         return result;
 
@@ -167,8 +176,11 @@ public class LList implements IList {
 
     private Node getNode(int pos) {
 
+        if (pos < 0 || pos >= size) {
+            throw new IllegalArgumentException("Out of list bounds");
+        }
         Node current = this.first;
-        for (int i = 0; i < pos - 1; i++) {
+        for (int i = 0; i < pos; i++) {
             current = current.getNext();
         }
         return current;
@@ -178,9 +190,17 @@ public class LList implements IList {
     @Override
     public int removeEnd() {
 
+        if (size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         int result = this.last.getValue();
-        Node current = getNode(this.size - 2);
-        current.setNext(null);
+        if (this.size == 1) {
+            this.first = null;
+            this.last = null;
+        } else {
+            Node current = getNode(this.size - 2);
+            current.setNext(null);
+        }
         this.size--;
         return result;
 
@@ -189,9 +209,20 @@ public class LList implements IList {
     @Override
     public int removeByPos(int pos) {
 
+        if (size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
+        if (pos == 0) {
+            return removeStart();
+        }
         Node current = getNode(pos - 1);
         int result = current.getNext().getValue();
-        current.setNext(current.getNext().getNext());
+        if (this.size == 1) {
+            this.first = null;
+            this.last = null;
+        } else {
+            current.setNext(current.getNext().getNext());
+        }
         this.size--;
         return result;
 
@@ -200,10 +231,13 @@ public class LList implements IList {
     @Override
     public int max() {
 
+        if (this.size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         int result = this.first.getValue();
         Node current = this.first;
-        while (current.getNext() != null){
-            if(current.getValue() > result){
+        while (current != null) {
+            if (current.getValue() > result) {
                 result = current.getValue();
             }
             current = current.getNext();
@@ -215,10 +249,13 @@ public class LList implements IList {
     @Override
     public int min() {
 
+        if (this.size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         int result = this.first.getValue();
         Node current = this.first;
-        while (current.getNext() != null){
-            if(current.getValue() < result){
+        while (current != null) {
+            if (current.getValue() < result) {
                 result = current.getValue();
             }
             current = current.getNext();
@@ -230,12 +267,15 @@ public class LList implements IList {
     @Override
     public int maxPos() {
 
+        if (this.size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         int result = this.first.getValue();
         int position = 0;
         int index = 0;
         Node current = this.first;
-        while (current.getNext() != null){
-            if(current.getValue() > result){
+        while (current != null) {
+            if (current.getValue() > result) {
                 result = current.getValue();
                 position = index;
             }
@@ -249,12 +289,15 @@ public class LList implements IList {
     @Override
     public int minPos() {
 
+        if (this.size == 0) {
+            throw new IllegalArgumentException("Zero elements in list");
+        }
         int result = this.first.getValue();
         int position = 0;
         int index = 0;
         Node current = this.first;
-        while (current.getNext() != null){
-            if(current.getValue() < result){
+        while (current != null) {
+            if (current.getValue() < result) {
                 result = current.getValue();
                 position = index;
             }
@@ -283,11 +326,25 @@ public class LList implements IList {
     @Override
     public int[] halfReverse() {
 
-        Node current = getNode(this.size/2+1);
-        this.last.setNext(this.first);
-        this.first = current.getNext();
-        this.last = current;
-        current.setNext(null);
+        if (this.size == 0 || this.size == 1) {
+            return this.toArray();
+        }
+        Node current = getNode(this.size / 2 - 1);
+        if (this.size % 2 == 0) {
+            this.last.setNext(this.first);
+            this.first = current.getNext();
+            this.last = current;
+            current.setNext(null);
+            return this.toArray();
+        } else {
+            Node current1 = current.getNext();
+            Node newFirst = current1.getNext();
+            current1.setNext(this.first);
+            this.first = newFirst;
+            current.setNext(null);
+            this.last.setNext(current1);
+            this.last = current;
+        }
         return this.toArray();
 
     }
