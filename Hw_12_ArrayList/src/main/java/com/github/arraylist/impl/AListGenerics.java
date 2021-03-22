@@ -1,25 +1,25 @@
 package com.github.arraylist.impl;
 
-import com.github.arraylist.IList;
+import com.github.arraylist.IListGenerics;
 
 import java.util.Arrays;
 
-public class AList implements IList {
+public class AListGenerics<T extends Comparable<T>> implements IListGenerics<T> {
 
-    private Integer[] array;
+    private Comparable[] array;
 
     private int size;
 
     private final int INITIAL_CAPACITY = 10;
 
-    public AList() {
+    public AListGenerics() {
 
-        this.array = new Integer[this.INITIAL_CAPACITY];
+        this.array = new Comparable[this.INITIAL_CAPACITY];
         this.size = 0;
 
     }
 
-    public AList(int[] init) {
+    public AListGenerics(T[] init) {
 
         this.init(init);
 
@@ -48,7 +48,7 @@ public class AList implements IList {
     private void changeSize() {
 
         if (isFull()) {
-            Integer[] newArray = new Integer[newCapacity(this.array.length)];
+            Comparable[] newArray = new Comparable[newCapacity(this.array.length)];
             for (int i = 0; i < this.size; i++) {
                 newArray[i] = this.array[i];
             }
@@ -57,7 +57,7 @@ public class AList implements IList {
         }
 
         if (isEmpty()) {
-            Integer[] newArray = new Integer[newMinCapacity(this.array.length)];
+            Comparable[] newArray = new Comparable[newMinCapacity(this.array.length)];
             for (int i = 0; i < this.size; i++) {
                 newArray[i] = this.array[i];
             }
@@ -66,22 +66,24 @@ public class AList implements IList {
 
     }
 
-    public void init(int[] init) {
+    @Override
+    public void init(T[] init) {
 
         if(init == null){
             throw new IllegalArgumentException("Null argument");
         }
         this.size = init.length;
-        this.array = new Integer[newCapacity(this.size)];
+        this.array = new Comparable[newCapacity(this.size)];
         for (int i = 0; i < this.size; i++) {
             this.array[i] = init[i];
         }
 
     }
 
+    @Override
     public void clear() {
 
-        this.array = new Integer[this.INITIAL_CAPACITY];
+        this.array = new Comparable[this.INITIAL_CAPACITY];
         this.size = 0;
 
     }
@@ -90,17 +92,19 @@ public class AList implements IList {
         return this.size;
     }
 
-    public int[] toArray() {
+    @Override
+    public T[] toArray() {
 
-        int[] result = new int[this.size];
+        Comparable[] result = new Comparable[this.size];
         for (int i = 0; i < size; i++) {
             result[i] = this.array[i];
         }
-        return result;
+        return (T[]) result;
 
     }
 
-    public void addStart(int val) {
+    @Override
+    public void addStart(T val) {
 
         this.changeSize();
         for (int i = 0; i < size; i++) {
@@ -111,7 +115,8 @@ public class AList implements IList {
 
     }
 
-    public void addEnd(int val) {
+    @Override
+    public void addEnd(T val) {
 
         changeSize();
         this.array[size] = val;
@@ -119,7 +124,8 @@ public class AList implements IList {
 
     }
 
-    public void addByPos(int pos, int val) {
+    @Override
+    public void addByPos(int pos, T val) {
 
         if (pos > size || pos < 0) {
             throw new IllegalArgumentException("Out of list bounds");
@@ -133,13 +139,14 @@ public class AList implements IList {
 
     }
 
-    public int removeStart() {
+    @Override
+    public T removeStart() {
 
         if (size == 0) {
             throw new IllegalArgumentException("Nothing to delete");
         }
         changeSize();
-        int val = this.array[0];
+        T val = (T) this.array[0];
         for (int i = 0; i < size - 1; i++) {
             this.array[i] = this.array[i + 1];
         }
@@ -148,26 +155,28 @@ public class AList implements IList {
 
     }
 
-    public int removeEnd() {
+    @Override
+    public T removeEnd() {
 
         if (size == 0) {
             throw new IllegalArgumentException("Nothing to delete");
         }
         changeSize();
-        int val = this.array[size - 1];
+        T val = (T) this.array[size - 1];
         this.array[size - 1] = null;
         size--;
         return val;
 
     }
 
-    public int removeByPos(int pos) {
+    @Override
+    public T removeByPos(int pos) {
 
         if (size == 0) {
             throw new IllegalArgumentException("Nothing to delete");
         }
         changeSize();
-        int val = this.array[pos];
+        T val = (T) this.array[pos];
         for (int i = 0; i < size - pos - 1; i++) {
             this.array[pos + i] = this.array[pos + i + 1];
         }
@@ -176,34 +185,37 @@ public class AList implements IList {
 
     }
 
-    public int max() {
+    @Override
+    public T max() {
 
         if(this.size == 0){
             throw new IllegalArgumentException("Zero elements in list");
         }
-        return this.array[maxPos()];
+        return (T) this.array[maxPos()];
 
     }
 
-    public int min() {
+    @Override
+    public T min() {
 
         if(this.size == 0){
             throw new IllegalArgumentException("Zero elements in list");
         }
-        return this.array[minPos()];
+        return (T) this.array[minPos()];
 
     }
 
+    @Override
     public int maxPos() {
 
         if(this.size == 0){
             throw new IllegalArgumentException("Zero elements");
         }
-        int maxVal = this.array[0];
+        T maxVal = (T) this.array[0];
         int maxPos = 0;
         for (int i = 1; i < size; i++) {
-            if (maxVal < this.array[i]) {
-                maxVal = this.array[i];
+            if (maxVal.compareTo((T) this.array[i]) < 0) {
+                maxVal = (T) this.array[i];
                 maxPos = i;
             }
         }
@@ -211,16 +223,17 @@ public class AList implements IList {
 
     }
 
+    @Override
     public int minPos() {
 
         if(this.size == 0){
             throw new IllegalArgumentException("Zero elements");
         }
-        int minVal = this.array[0];
+        T minVal = (T) this.array[0];
         int minPos = 0;
         for (int i = 1; i < size; i++) {
-            if (minVal > this.array[i]) {
-                minVal = this.array[i];
+            if (minVal.compareTo((T) this.array[i]) > 0) {
+                minVal = (T) this.array[i];
                 minPos = i;
             }
         }
@@ -228,9 +241,10 @@ public class AList implements IList {
 
     }
 
-    public int[] sort() {
+    @Override
+    public T[] sort() {
 
-        int[] sorted = this.toArray();
+        T[] sorted = this.toArray();
         Arrays.sort(sorted);
         for(int i = 0; i < size; i++){
             this.array[i] = sorted[i];
@@ -239,41 +253,48 @@ public class AList implements IList {
 
     }
 
-    public int get(int pos) {
+    @Override
+    public T get(int pos) {
 
         if(pos > size - 1 || pos < 0){
             throw new IllegalArgumentException("Out of list bounds");
         }
-        return this.array[pos];
+        return (T) this.array[pos];
 
     }
 
-    public int[] halfReverse() {
+    @Override
+    public T[] halfReverse() {
 
-            int k;
-            int[] a = this.toArray();
-            if (a.length % 2 == 1) {
-                for (int i = 0; i < a.length / 2; i++) {
-                    k = a[i];
-                    a[i] = a[i + a.length / 2 + 1];
-                    a[i + a.length / 2 + 1] = k;
-                }
-            } else {
-                for (int i = 0; i < a.length / 2; i++) {
-                    k = a[i];
-                    a[i] = a[i + a.length / 2];
-                    a[i + a.length / 2] = k;
-                }
+        T k;
+        T[] a = this.toArray();
+
+        if (a.length % 2 == 1) {
+            for (int i = 0; i < a.length / 2; i++) {
+                k = a[i];
+                a[i] = a[i + a.length / 2 + 1];
+                a[i + a.length / 2 + 1] = k;
             }
-            this.init(a);
-            return a;
+        } else {
+            for (int i = 0; i < a.length / 2; i++) {
+                k = a[i];
+                a[i] = a[i + a.length / 2];
+                a[i + a.length / 2] = k;
+            }
+        }
+        this.init(a);
+        return a;
 
     }
 
-    public int[] reverse() {
+    @Override
+    public T[] reverse() {
 
-        int[] a = this.toArray();
-        int k;
+        T[] a = (T[]) new Comparable[this.size];
+        for (int i = 0; i < this.size; i++) {
+            a[i] = (T) this.array[i];
+        }
+        T k;
         for (int i = 0; i < a.length / 2; i++) {
             k = a[i];
             a[i] = a[a.length - 1 - i];
@@ -284,7 +305,8 @@ public class AList implements IList {
 
     }
 
-    public void set(int pos, int val) {
+    @Override
+    public void set(int pos, T val) {
 
         if(pos > size - 1 || pos < 0){
             throw new IllegalArgumentException("Out of list bounds");

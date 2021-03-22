@@ -1,6 +1,6 @@
 package com.github.arraylist;
 
-public interface IList {
+public interface IList{
 
     void init(int[] init);
 

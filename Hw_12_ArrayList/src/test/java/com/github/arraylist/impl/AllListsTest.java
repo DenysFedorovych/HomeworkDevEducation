@@ -4,10 +4,14 @@ import com.github.arraylist.IList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
+import java.util.Collection;
 
-public class AListTest {
+@RunWith(Parameterized.class)
+public class AllListsTest {
 
     private static IList iList;
 
@@ -35,7 +39,19 @@ public class AListTest {
 
     @Before
     public void initialize() {
-        iList = new AList();
+        this.iList.clear();
+    }
+
+    public AllListsTest(IList iList){
+        this.iList = iList;
+    }
+
+    @Parameterized.Parameters(name = "{index} {0}")
+    public static Collection<Object[]> instances(){
+        return Arrays.asList(new Object[][]{
+                {new AList()},
+                {new LList()}
+        });
     }
 
 

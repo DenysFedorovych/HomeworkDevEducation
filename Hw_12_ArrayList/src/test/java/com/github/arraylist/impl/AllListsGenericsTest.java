@@ -1,41 +1,57 @@
 package com.github.arraylist.impl;
 
-import com.github.arraylist.IList;
+import com.github.arraylist.IListGenerics;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
+import java.util.Collection;
 
-public class LListTest {
+@RunWith(Parameterized.class)
+public class AllListsGenericsTest {
 
-    private static IList iList;
+    private static IListGenerics iList;
 
-    private final static int[] ten = {1, 2, 45, 32, 15, 128, 424, 567, 222, 904};
+    private final static String[] four = {"One", "Two", "Three", "Four"};
 
-    private final static int[] tenHalfReversed = {128, 424, 567, 222, 904, 1, 2, 45, 32, 15};
+    private final static String[] fourHalfReversed = {"Three", "Four", "One", "Two"};
 
-    private final static int[] tenReversed = {904, 222, 567, 424, 128, 15, 32, 45, 2, 1};
+    private final static String[] fourReversed = {"Four", "Three", "Two", "One"};
 
-    private final static int[] one = {65};
+    private final static String[] one = {"One"};
 
-    private final static int[] two = {5, 9};
+    private final static String[] two = {"One", "Two"};
 
-    private final static int[] twoReversed = {9, 5};
+    private final static String[] twoReversed = {"Two", "One"};
 
-    private final static int[] zero = {};
+    private final static String[] zero = {};
 
-    private final static int[] five = {222, 904, 567, 128, 424};
+    private final static String[] five = {"One", "Two", "Three", "Four", "Five"};
 
-    private final static int[] fiveHalfReversed = {128, 424, 567, 222, 904};
+    private final static String[] fiveHalfReversed = {"Four", "Five", "Three", "One", "Two"};
 
-    private final static int[] fiveReversed = {424, 128, 567, 904, 222};
+    private final static String[] fiveReversed = {"Five", "Four", "Three", "Two", "One"};
 
-    private final static int num1 = 43;
+    private final static String str1 = "string";
 
     @Before
     public void initialize() {
-        iList = new LList();
+        this.iList.clear();
+    }
+
+    public AllListsGenericsTest(IListGenerics iList){
+        this.iList = iList;
+    }
+
+    @Parameterized.Parameters(name = "{index} {0}")
+    public static Collection<Object[]> instances(){
+        return Arrays.asList(new Object[][]{
+                {new AListGenerics<String>()},
+                {new LListGenerics<String>()}
+        });
     }
 
 
@@ -46,8 +62,8 @@ public class LListTest {
     @Test
     public void initMany() {
 
-        iList.init(ten);
-        Assert.assertArrayEquals(iList.toArray(), ten);
+        iList.init(four);
+        Assert.assertArrayEquals(iList.toArray(), four);
 
     }
 
@@ -89,7 +105,7 @@ public class LListTest {
     @Test
     public void clearMany() {
 
-        iList.init(ten);
+        iList.init(four);
         iList.clear();
         Assert.assertArrayEquals(iList.toArray(), zero);
 
@@ -129,8 +145,8 @@ public class LListTest {
     @Test
     public void sizeMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.size(), 10);
+        iList.init(four);
+        Assert.assertEquals(iList.size(), 4);
 
     }
 
@@ -165,15 +181,15 @@ public class LListTest {
     @Test
     public void toArrayMany() {
 
-        IList iList = new AList(ten);
-        Assert.assertArrayEquals(iList.toArray(), ten);
+        IListGenerics iList = new AListGenerics<String>(four);
+        Assert.assertArrayEquals(iList.toArray(), four);
 
     }
 
     @Test
     public void toArrayOne() {
 
-        IList iList = new AList(one);
+        IListGenerics iList = new AListGenerics(one);
         Assert.assertArrayEquals(iList.toArray(), one);
 
     }
@@ -181,7 +197,7 @@ public class LListTest {
     @Test
     public void toArrayTwo() {
 
-        IList iList = new AList(two);
+        IListGenerics iList = new AListGenerics(two);
         Assert.assertArrayEquals(iList.toArray(), two);
 
     }
@@ -189,7 +205,7 @@ public class LListTest {
     @Test
     public void toArrayZero() {
 
-        IList iList = new AList(zero);
+        IListGenerics iList = new AListGenerics(zero);
         Assert.assertArrayEquals(iList.toArray(), zero);
 
     }
@@ -201,9 +217,9 @@ public class LListTest {
     @Test
     public void addStartMany() {
 
-        iList.init(ten);
-        iList.addStart(num1);
-        Assert.assertEquals(iList.toArray()[0], num1);
+        iList.init(four);
+        iList.addStart(str1);
+        Assert.assertEquals(iList.toArray()[0], str1);
 
     }
 
@@ -211,8 +227,8 @@ public class LListTest {
     public void addStartOne() {
 
         iList.init(one);
-        iList.addStart(num1);
-        Assert.assertEquals(iList.toArray()[0], num1);
+        iList.addStart(str1);
+        Assert.assertEquals(iList.toArray()[0], str1);
 
     }
 
@@ -220,8 +236,8 @@ public class LListTest {
     public void addStartTwo() {
 
         iList.init(two);
-        iList.addStart(num1);
-        Assert.assertEquals(iList.toArray()[0], num1);
+        iList.addStart(str1);
+        Assert.assertEquals(iList.toArray()[0], str1);
 
     }
 
@@ -229,8 +245,8 @@ public class LListTest {
     public void addStartZero() {
 
         iList.init(zero);
-        iList.addStart(num1);
-        Assert.assertEquals(iList.toArray()[0], num1);
+        iList.addStart(str1);
+        Assert.assertEquals(iList.toArray()[0], str1);
 
     }
 
@@ -241,10 +257,10 @@ public class LListTest {
     @Test
     public void addEndMany() {
 
-        iList.init(ten);
-        iList.addEnd(num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[arr.length - 1], num1);
+        iList.init(four);
+        iList.addEnd(str1);
+        String str = (String) iList.toArray()[4];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -252,9 +268,9 @@ public class LListTest {
     public void addEndOne() {
 
         iList.init(one);
-        iList.addEnd(num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[arr.length - 1], num1);
+        iList.addEnd(str1);
+        String str = (String) iList.toArray()[1];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -262,9 +278,9 @@ public class LListTest {
     public void addEndTwo() {
 
         iList.init(two);
-        iList.addEnd(num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[arr.length - 1], num1);
+        iList.addEnd(str1);
+        String str = (String) iList.toArray()[2];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -272,9 +288,9 @@ public class LListTest {
     public void addEndZero() {
 
         iList.init(zero);
-        iList.addEnd(num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[arr.length - 1], num1);
+        iList.addEnd(str1);
+        String str = (String) iList.toArray()[0];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -285,9 +301,9 @@ public class LListTest {
     @Test
     public void addByPosMany() {
 
-        iList.init(ten);
-        iList.addByPos(3, num1);
-        Assert.assertEquals(iList.toArray()[3], num1);
+        iList.init(four);
+        iList.addByPos(3, str1);
+        Assert.assertEquals(iList.toArray()[3], str1);
 
     }
 
@@ -295,9 +311,9 @@ public class LListTest {
     public void addByPosOne() {
 
         iList.init(one);
-        iList.addByPos(1, num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[1], num1);
+        iList.addByPos(1, str1);
+        String str = (String) iList.toArray()[1];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -305,9 +321,9 @@ public class LListTest {
     public void addByPosTwo() {
 
         iList.init(two);
-        iList.addByPos(1, num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[1], num1);
+        iList.addByPos(1, str1);
+        String str = (String) iList.toArray()[1];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -315,9 +331,9 @@ public class LListTest {
     public void addByPosZero() {
 
         iList.init(zero);
-        iList.addByPos(0, num1);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[0], num1);
+        iList.addByPos(0, str1);
+        String str = (String) iList.toArray()[0];
+        Assert.assertEquals(str, str1);
 
     }
 
@@ -325,15 +341,15 @@ public class LListTest {
     public void addByPosException() {
 
         iList.init(zero);
-        iList.addByPos(1, num1);
+        iList.addByPos(1, str1);
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addByPosException1() {
 
-        iList.init(ten);
-        iList.addByPos(-1, num1);
+        iList.init(four);
+        iList.addByPos(-1, str1);
 
     }
 
@@ -344,9 +360,9 @@ public class LListTest {
     @Test
     public void removeStartMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.removeStart(), ten[0]);
-        Assert.assertEquals(iList.toArray()[0], ten[1]);
+        iList.init(four);
+        Assert.assertEquals(iList.removeStart(), four[0]);
+        Assert.assertEquals(iList.toArray()[0], four[1]);
 
     }
 
@@ -383,10 +399,10 @@ public class LListTest {
     @Test
     public void removeEndMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.removeEnd(), ten[9]);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[arr.length - 1], ten[8]);
+        iList.init(four);
+        Assert.assertEquals(iList.removeEnd(), four[3]);
+        String str = (String) iList.toArray()[2];
+        Assert.assertEquals(str, four[2]);
 
     }
 
@@ -423,9 +439,9 @@ public class LListTest {
     @Test
     public void removeByPosMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.removeByPos(3), ten[3]);
-        Assert.assertEquals(iList.toArray()[3], ten[4]);
+        iList.init(four);
+        Assert.assertEquals(iList.removeByPos(2), four[2]);
+        Assert.assertEquals(iList.toArray()[2], four[3]);
 
     }
 
@@ -434,8 +450,8 @@ public class LListTest {
 
         iList.init(one);
         Assert.assertEquals(iList.removeByPos(0), one[0]);
-        int[] arr = iList.toArray();
-        Assert.assertArrayEquals(arr, zero);
+        Comparable[] arr = iList.toArray();
+        Assert.assertEquals(arr.length, 0);
 
     }
 
@@ -444,8 +460,8 @@ public class LListTest {
 
         iList.init(two);
         Assert.assertEquals(iList.removeByPos(1), two[1]);
-        int[] arr = iList.toArray();
-        Assert.assertEquals(arr[0], two[0]);
+        String str = (String) iList.toArray()[0];
+        Assert.assertEquals(str, two[0]);
 
     }
 
@@ -464,8 +480,8 @@ public class LListTest {
     @Test
     public void maxMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.max(), ten[9]);
+        iList.init(four);
+        Assert.assertEquals(iList.max(), four[1]);
 
     }
 
@@ -500,8 +516,8 @@ public class LListTest {
     @Test
     public void minMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.min(), ten[0]);
+        iList.init(four);
+        Assert.assertEquals(iList.min(), four[3]);
 
     }
 
@@ -536,8 +552,8 @@ public class LListTest {
     @Test
     public void maxPosMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.maxPos(), 9);
+        iList.init(four);
+        Assert.assertEquals(iList.maxPos(), 1);
 
     }
 
@@ -573,8 +589,8 @@ public class LListTest {
     @Test
     public void minPosMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(iList.minPos(), 0);
+        iList.init(four);
+        Assert.assertEquals(iList.minPos(), 3);
 
     }
 
@@ -609,21 +625,21 @@ public class LListTest {
     @Test
     public void sortMany() {
 
-        int[] sortedTen = new int[ten.length];
-        for (int i = 0; i < ten.length; i++) {
-            sortedTen[i] = ten[i];
+        String[] sortedfour = new String[four.length];
+        for (int i = 0; i < four.length; i++) {
+            sortedfour[i] = four[i];
         }
-        Arrays.sort(sortedTen);
-        iList.init(ten);
-        Assert.assertArrayEquals(sortedTen, iList.sort());
-        Assert.assertArrayEquals(sortedTen, iList.toArray());
+        Arrays.sort(sortedfour);
+        iList.init(four);
+        Assert.assertArrayEquals(sortedfour, iList.sort());
+        Assert.assertArrayEquals(sortedfour, iList.toArray());
 
     }
 
     @Test
     public void sortOne() {
 
-        int[] sortedOne = new int[one.length];
+        String[] sortedOne = new String[one.length];
         for (int i = 0; i < one.length; i++) {
             sortedOne[i] = one[i];
         }
@@ -637,7 +653,7 @@ public class LListTest {
     @Test
     public void sortTwo() {
 
-        int[] sortedTwo = new int[two.length];
+        String[] sortedTwo = new String[two.length];
         for (int i = 0; i < two.length; i++) {
             sortedTwo[i] = two[i];
         }
@@ -651,7 +667,7 @@ public class LListTest {
     @Test
     public void sortZero() {
 
-        int[] sortedZero = zero;
+        String[] sortedZero = zero;
         Arrays.sort(sortedZero);
         iList.init(zero);
         Assert.assertArrayEquals(sortedZero, iList.sort());
@@ -666,9 +682,9 @@ public class LListTest {
     @Test
     public void getMany() {
 
-        iList.init(ten);
-        Assert.assertEquals(ten[0], iList.get(0));
-        Assert.assertEquals(ten[4], iList.get(4));
+        iList.init(four);
+        Assert.assertEquals(four[0], iList.get(0));
+        Assert.assertEquals(four[3], iList.get(3));
 
     }
 
@@ -711,8 +727,8 @@ public class LListTest {
     @Test
     public void halfReverseManyEven() {
 
-        iList.init(ten);
-        Assert.assertArrayEquals(tenHalfReversed, iList.halfReverse());
+        iList.init(four);
+        Assert.assertArrayEquals(fourHalfReversed, iList.halfReverse());
 
     }
 
@@ -755,8 +771,8 @@ public class LListTest {
     @Test
     public void reverseManyEven() {
 
-        iList.init(ten);
-        Assert.assertArrayEquals(tenReversed, iList.reverse());
+        iList.init(four);
+        Assert.assertArrayEquals(fourReversed, iList.reverse());
 
     }
 
@@ -799,9 +815,9 @@ public class LListTest {
     @Test
     public void setMany() {
 
-        iList.init(ten);
-        iList.set(4, num1);
-        Assert.assertEquals(iList.get(4), num1);
+        iList.init(four);
+        iList.set(2, str1);
+        Assert.assertEquals(iList.get(2), str1);
 
     }
 
@@ -809,8 +825,8 @@ public class LListTest {
     public void setOne() {
 
         iList.init(one);
-        iList.set(0, num1);
-        Assert.assertEquals(iList.get(0), num1);
+        iList.set(0, str1);
+        Assert.assertEquals(iList.get(0), str1);
 
     }
 
@@ -818,7 +834,7 @@ public class LListTest {
     public void setOneException() {
 
         iList.init(one);
-        iList.set(2, num1);
+        iList.set(2, str1);
 
     }
 
@@ -826,8 +842,8 @@ public class LListTest {
     public void setTwo() {
 
         iList.init(two);
-        iList.set(1, num1);
-        Assert.assertEquals(iList.get(1), num1);
+        iList.set(1, str1);
+        Assert.assertEquals(iList.get(1), str1);
 
     }
 
@@ -835,7 +851,7 @@ public class LListTest {
     public void setZero() {
 
         iList.init(zero);
-        iList.set(0, num1);
+        iList.set(0, str1);
 
     }
 

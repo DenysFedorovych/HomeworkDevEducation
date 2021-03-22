@@ -1,34 +1,52 @@
 package com.github.arraylist.impl;
 
-import com.github.arraylist.IList;
+import com.github.arraylist.IListGenerics;
 
 import java.util.Arrays;
 
-public class LList implements IList {
+public class LListGenerics<T extends Comparable<T>> implements IListGenerics<T> {
 
-    private class Node {
+    private class Node<T> {
 
-        private Node next;
+        private LListGenerics.Node next;
 
-        private Integer value;
+        private LListGenerics.Node previous;
 
-        public Node(Integer value) {
+        private T value;
+
+        public Node(T value) {
             this.value = value;
         }
 
-        public void setNext(Node next) {
+        public Node(Node<T> node){
+
+            this.setPrevious(node.getPrevious());
+            this.setNext(node.getNext());
+            this.setValue(node.getValue());
+
+        }
+
+        public void setNext(LListGenerics.Node next) {
             this.next = next;
         }
 
-        public Node getNext() {
+        public LListGenerics.Node getNext() {
             return this.next;
         }
 
-        private void setValue(int val) {
+        public void setPrevious(Node previous) {
+            this.previous = previous;
+        }
+
+        private void setValue(T val) {
             this.value = val;
         }
 
-        public int getValue() {
+        public Node getPrevious() {
+            return previous;
+        }
+
+        public T getValue() {
             return this.value;
         }
 
@@ -40,7 +58,7 @@ public class LList implements IList {
 
     private int size;
 
-    public LList() {
+    public LListGenerics() {
 
         this.first = null;
         this.last = null;
@@ -48,13 +66,13 @@ public class LList implements IList {
 
     }
 
-    public LList(int[] init) {
+    public LListGenerics(T[] init) {
         this.init(init);
     }
 
 
     @Override
-    public void init(int[] init) throws IllegalArgumentException {
+    public void init(T[] init) throws IllegalArgumentException {
 
         if (init == null) {
             throw new IllegalArgumentException("Null argument");
@@ -63,10 +81,12 @@ public class LList implements IList {
             return;
         }
         this.first = new Node(init[0]);
+        this.first.setPrevious(null);
         Node current = this.first;
         for (int i = 1; i < init.length; i++) {
             Node next = new Node(init[i]);
             current.setNext(next);
+            next.setPrevious(current);
             current = next;
         }
         this.last = current;
@@ -89,39 +109,42 @@ public class LList implements IList {
     }
 
     @Override
-    public int[] toArray() {
+    public T[] toArray() {
 
-        int[] result = new int[this.size];
+        Comparable[] result = new Comparable[this.size];
         Node current = this.first;
         for (int i = 0; i < this.size; i++) {
-            result[i] = current.value;
+            result[i] = (Comparable) current.value;
             current = current.getNext();
         }
-        return result;
+        return (T[]) result;
 
     }
 
     @Override
-    public void addStart(int val) {
-
-        Node newFirst = new Node(val);
-        newFirst.setNext(this.first);
-        this.first = newFirst;
-        if (this.size == 0) {
-            this.last = newFirst;
-        }
-        this.size++;
-
-    }
-
-    @Override
-    public void addEnd(int val) {
+    public void addStart(T val) {
 
         Node newFirst = new Node(val);
         if (this.size == 0) {
             this.first = newFirst;
             this.last = newFirst;
         }
+        newFirst.setNext(this.first);
+        this.first.setPrevious(newFirst);
+        this.first = newFirst;
+        this.size++;
+
+    }
+
+    @Override
+    public void addEnd(T val) {
+
+        Node newFirst = new Node(val);
+        if (this.size == 0) {
+            this.first = newFirst;
+            this.last = newFirst;
+        }
+        newFirst.setPrevious(this.last);
         this.last.setNext(newFirst);
         this.last = newFirst;
         this.size++;
@@ -129,7 +152,7 @@ public class LList implements IList {
     }
 
     @Override
-    public void addByPos(int pos, int val) throws IllegalArgumentException {
+    public void addByPos(int pos, T val) throws IllegalArgumentException {
 
         if (pos > size || pos < 0) {
             throw new IllegalArgumentException("Out of list bounds");
@@ -142,32 +165,33 @@ public class LList implements IList {
             addEnd(val);
             return;
         }
+        Node newOne = new Node(val);
         if (this.size == 0) {
-            Node newOne = new Node(val);
             this.first = newOne;
             this.last = newOne;
             return;
         }
         Node current = getNode(pos - 1);
-        Node newOne = new Node(val);
         newOne.setNext(current.getNext());
+        newOne.setPrevious(current);
         current.setNext(newOne);
         this.size++;
 
     }
 
     @Override
-    public int removeStart() throws IllegalArgumentException {
+    public T removeStart() throws IllegalArgumentException {
 
         if (size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.first.getValue();
+        T result = (T) this.first.getValue();
         if (this.size == 1) {
             this.first = null;
             this.last = null;
         } else {
             this.first = this.first.getNext();
+            this.first.setPrevious(null);
         }
         this.size--;
         return result;
@@ -179,27 +203,36 @@ public class LList implements IList {
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Out of list bounds");
         }
-        Node current = this.first;
-        for (int i = 0; i < pos; i++) {
-            current = current.getNext();
+        Node current;
+        if (pos < size / 2) {
+            current = this.first;
+            for (int i = 0; i < pos; i++) {
+                current = current.getNext();
+            }
+        } else {
+            current = this.last;
+            for(int i = 0; i < size - pos - 1; i++){
+                current = current.getPrevious();
+            }
         }
         return current;
 
     }
 
     @Override
-    public int removeEnd() {
+    public T removeEnd() {
 
         if (size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.last.getValue();
+        T result = (T) this.last.getValue();
         if (this.size == 1) {
             this.first = null;
             this.last = null;
         } else {
-            Node current = getNode(this.size - 2);
+            Node current = this.last.getPrevious();
             current.setNext(null);
+            this.last.setPrevious(null);
             this.last = current;
         }
         this.size--;
@@ -208,7 +241,7 @@ public class LList implements IList {
     }
 
     @Override
-    public int removeByPos(int pos) {
+    public T removeByPos(int pos) {
 
         if (size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
@@ -217,12 +250,13 @@ public class LList implements IList {
             return removeStart();
         }
         Node current = getNode(pos - 1);
-        int result = current.getNext().getValue();
+        T result = (T) current.getNext().getValue();
         if (this.size == 1) {
             this.first = null;
             this.last = null;
         } else {
             current.setNext(current.getNext().getNext());
+            current.getNext().setPrevious(current);
         }
         this.size--;
         return result;
@@ -230,16 +264,16 @@ public class LList implements IList {
     }
 
     @Override
-    public int max() {
+    public T max() {
 
         if (this.size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.first.getValue();
+        T result = (T) this.first.getValue();
         Node current = this.first;
         while (current != null) {
-            if (current.getValue() > result) {
-                result = current.getValue();
+            if (result.compareTo((T) current.getValue()) < 0) {
+                result = (T) current.getValue();
             }
             current = current.getNext();
         }
@@ -248,16 +282,16 @@ public class LList implements IList {
     }
 
     @Override
-    public int min() {
+    public T min() {
 
         if (this.size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.first.getValue();
+        T result = (T) this.first.getValue();
         Node current = this.first;
         while (current != null) {
-            if (current.getValue() < result) {
-                result = current.getValue();
+            if (result.compareTo((T) current.getValue()) > 0) {
+                result = (T) current.getValue();
             }
             current = current.getNext();
         }
@@ -271,13 +305,13 @@ public class LList implements IList {
         if (this.size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.first.getValue();
+        T result = (T) this.first.getValue();
         int position = 0;
         int index = 0;
         Node current = this.first;
         while (current != null) {
-            if (current.getValue() > result) {
-                result = current.getValue();
+            if (result.compareTo((T) current.getValue()) < 0) {
+                result = (T) current.getValue();
                 position = index;
             }
             current = current.getNext();
@@ -293,13 +327,13 @@ public class LList implements IList {
         if (this.size == 0) {
             throw new IllegalArgumentException("Zero elements in list");
         }
-        int result = this.first.getValue();
+        T result = (T) this.first.getValue();
         int position = 0;
         int index = 0;
         Node current = this.first;
         while (current != null) {
-            if (current.getValue() < result) {
-                result = current.getValue();
+            if (result.compareTo((T) current.getValue()) > 0) {
+                result = (T) current.getValue();
                 position = index;
             }
             current = current.getNext();
@@ -310,9 +344,9 @@ public class LList implements IList {
     }
 
     @Override
-    public int[] sort() {
+    public T[] sort() {
 
-        int[] sorted = this.toArray();
+        T[] sorted = this.toArray();
         Arrays.sort(sorted);
         this.init(sorted);
         return sorted;
@@ -320,12 +354,12 @@ public class LList implements IList {
     }
 
     @Override
-    public int get(int pos) {
-        return this.getNode(pos).getValue();
+    public T get(int pos) {
+        return (T) this.getNode(pos).getValue();
     }
 
     @Override
-    public int[] halfReverse() {
+    public T[] halfReverse() {
 
         if (this.size == 0 || this.size == 1) {
             return this.toArray();
@@ -333,16 +367,20 @@ public class LList implements IList {
         Node current = getNode(this.size / 2 - 1);
         if (this.size % 2 == 0) {
             this.last.setNext(this.first);
+            this.first.setPrevious(this.last);
             this.first = current.getNext();
+            current.getNext().setPrevious(null);
             this.last = current;
             current.setNext(null);
         } else {
             Node current1 = current.getNext();
             Node newFirst = current1.getNext();
             current1.setNext(this.first);
+            this.first.setPrevious(current1);
             this.first = newFirst;
             current.setNext(null);
             this.last.setNext(current1);
+            current1.setPrevious(this.last);
             this.last = current;
         }
         return this.toArray();
@@ -350,23 +388,22 @@ public class LList implements IList {
     }
 
     @Override
-    public int[] reverse() {
+    public T[] reverse() {
 
-        int[] a = this.toArray();
-        int k;
+        T[] a = this.toArray();
+        T k;
         for (int i = 0; i < a.length / 2; i++) {
             k = a[i];
             a[i] = a[a.length - 1 - i];
             a[a.length - 1 - i] = k;
         }
         this.init(a);
-        return a;
-
+        return this.toArray();
 
     }
 
     @Override
-    public void set(int pos, int val) {
+    public void set(int pos, T val) {
         getNode(pos).setValue(val);
     }
 
