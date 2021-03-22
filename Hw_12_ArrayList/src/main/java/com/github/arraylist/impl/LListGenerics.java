@@ -249,6 +249,9 @@ public class LListGenerics<T extends Comparable<T>> implements IListGenerics<T> 
         if (pos == 0) {
             return removeStart();
         }
+        if(pos == this.size - 1){
+            return removeEnd();
+        }
         Node current = getNode(pos - 1);
         T result = (T) current.getNext().getValue();
         if (this.size == 1) {
