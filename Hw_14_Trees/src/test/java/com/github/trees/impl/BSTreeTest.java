@@ -164,34 +164,26 @@ public class BSTreeTest {
 
     @Test
     public void toArrayMany() {
-
         ITree iTree = new BSTree(ten);
-        Assert.assertArrayEquals(iTree.toArray(), ten);
-
+        Assert.assertArrayEquals(iTree.toArray(), tenSorted);
     }
 
     @Test
     public void toArrayOne() {
-
         ITree iTree = new BSTree(one);
         Assert.assertArrayEquals(iTree.toArray(), one);
-
     }
 
     @Test
     public void toArrayTwo() {
-
         ITree iTree = new BSTree(two);
-        Assert.assertArrayEquals(iTree.toArray(), two);
-
+        Assert.assertArrayEquals(iTree.toArray(), twoSorted);
     }
 
     @Test
     public void toArrayZero() {
-
         ITree iTree = new BSTree(zero);
         Assert.assertArrayEquals(iTree.toArray(), zero);
-
     }
 
     //===========================================================================
@@ -199,15 +191,56 @@ public class BSTreeTest {
     //===========================================================================
 
     @Test
-    public void add() {
+    public void addMany() {
+        ITree iTree = new BSTree(ten);
+        int[] res = {1, 2, 15, 32, 45, 128, 222, 424, 567, 904, 1000};
+        iTree.add(1000);
+        Assert.assertArrayEquals(iTree.toArray(), res);
     }
 
     @Test
-    public void del() {
+    public void addTwo() {
+        ITree iTree = new BSTree(two);
+        int[] res = {5, 9, 1000};
+        iTree.add(1000);
+        Assert.assertArrayEquals(iTree.toArray(), res);
     }
+
+    @Test
+    public void addOne() {
+        ITree iTree = new BSTree(one);
+        int[] res = {65, 1000};
+        iTree.add(1000);
+        Assert.assertArrayEquals(iTree.toArray(), res);
+    }
+
+    @Test
+    public void addZero() {
+        ITree iTree = new BSTree(zero);
+        int[] res = {1000};
+        iTree.add(1000);
+        Assert.assertArrayEquals(iTree.toArray(), res);
+    }
+
+    //===========================================================================
+    //============================= Delete test  ================================
+    //===========================================================================
+
+    @Test
+    public void delMany() {
+        ITree iTree = new BSTree(ten);
+        int[] res = {1, 2, 15, 32, 45, 128, 222, 424, 567};
+        iTree.del(904);
+        Assert.assertArrayEquals(iTree.toArray(), res);
+    }
+
+    //===========================================================================
+    //============================= Width tests =================================
+    //===========================================================================
 
     @Test
     public void getWidth() {
+
     }
 
     @Test

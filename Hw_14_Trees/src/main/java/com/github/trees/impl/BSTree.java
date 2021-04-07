@@ -2,7 +2,6 @@ package com.github.trees.impl;
 
 import com.github.trees.ITree;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,6 +44,7 @@ public class BSTree implements ITree {
     @Override
     public void clear() {
         this.root = null;
+        this.size = 0;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class BSTree implements ITree {
         return arr;
     }
 
-    private void toArrayNode(Node current, List arr) {
+    private void toArrayNode(Node current, List<Integer> arr) {
         if (current == null) return;
         toArrayNode(current.left, arr);
         arr.add(current.val);
@@ -102,6 +102,7 @@ public class BSTree implements ITree {
         }
         Node node = this.getNode(val, this.root);
         drown(node);
+        this.size--;
     }
 
     private void drown(Node current) {
