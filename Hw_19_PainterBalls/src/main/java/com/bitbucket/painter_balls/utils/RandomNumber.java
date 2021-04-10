@@ -16,7 +16,7 @@ public class RandomNumber {
     }
 
     public static short getRandomVelocity(){
-        return (short) (random.nextInt(14) - 7);
+        return (short) (random.nextInt(30) - 15);
     }
 
 }

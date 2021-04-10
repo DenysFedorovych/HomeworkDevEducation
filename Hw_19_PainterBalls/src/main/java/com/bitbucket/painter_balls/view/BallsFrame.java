@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class BallsFrame extends JFrame {
 
-    public BallsFrame() throws HeadlessException {
+    public BallsFrame(JPanel panel) throws HeadlessException {
         this.setLayout(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(100,100,800,800);
-        this.add(new BallsPanel());
+        this.add(panel);
         this.setVisible(true);
     }
 
