@@ -1,5 +1,3 @@
-package com.github.unittests;
-
 import com.github.firsthomework.ToNumberConvert;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,5 +1,3 @@
-package com.github.unittests;
-
 import com.github.firsthomework.Cycles;
 import org.junit.Assert;
 import org.junit.Test;
