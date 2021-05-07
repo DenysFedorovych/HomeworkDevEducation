@@ -33,12 +33,16 @@ public class SimpleHttpRequest {
             do {
                 this.byteBuffer.clear();
                 bytes = this.socketChannel.read(this.byteBuffer);
-                result.append(new String(this.byteBuffer.array()));
-            } while (bytes == 1024);
+                this.byteBuffer.flip();
+                String str = new String(this.byteBuffer.array());
+                result.append(str);
+                System.out.println("This length is " + str.length());
+            } while (bytes == 512);
             byteBuffer.clear();
-            System.out.println(bytes);
             if (bytes == -1) return;
             this.request = result.toString();
+//            System.out.println(this.request);
+            System.out.println("Request length is " + this.request.length());
             this.type = Type.getValue(this.request.substring(0, this.request.indexOf(' ')));
             this.body = this.request.substring(this.request.indexOf(BODY_DELIMITER) + 3);
         } catch (IOException exception) {

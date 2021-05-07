@@ -1,0 +1,50 @@
+*, html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+.photo {
+    width : 150px;
+    height : 150px;
+    border-radius: 150px;
+    border: 3px solid cadetblue;
+}
+
+.comment {
+    margin: 20px;
+    border: 3px solid darkred;
+    background: darkgray;
+}
+
+.comments {
+    display: flex;
+    justify-content: space-around;
+}
+
+.name {
+    font-weight: bold;
+    font-family: "Times New Roman";
+}
+
+.status {
+    position: absolute;
+    right: 10%;
+    top: 90%;
+    background: chartreuse;
+    width: 50px;
+    height: 50px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.image-wrapper img {
+    width : 150px;
+    height : 150px;
+    border-radius: 150px;
+    border: 3px solid cadetblue;
+
+}

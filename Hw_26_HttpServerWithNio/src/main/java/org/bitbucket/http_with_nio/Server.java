@@ -33,10 +33,10 @@ public class Server {
         while (true) {
             try {
                 SocketChannel socketChannel = this.serverSocketChannel.accept();
-                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                ByteBuffer byteBuffer = ByteBuffer.allocate(512);
                 SimpleHttpRequest simpleHttpRequest = new SimpleHttpRequest(socketChannel, byteBuffer);
                 SimpleHttpResponse simpleHttpResponse = new SimpleHttpResponse(socketChannel, new HttpHandler(simpleHttpRequest), byteBuffer);
-                socketChannel.finishConnect();
+//                socketChannel.finishConnect();
             } catch (IOException exception) {
                 exception.printStackTrace();
             } finally {
