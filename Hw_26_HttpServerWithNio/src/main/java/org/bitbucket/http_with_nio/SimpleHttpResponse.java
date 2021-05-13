@@ -31,9 +31,8 @@ public class SimpleHttpResponse {
         int capacity = Math.min(this.byteBuffer.capacity(), bytes.length);
         int pointer = 0;
         do {
-            this.byteBuffer.clear();
-            this.byteBuffer.put(bytes, pointer, capacity);
-            this.socketChannel.write(this.byteBuffer);
+            ByteBuffer response = ByteBuffer.wrap(bytes);
+            this.socketChannel.write(response);
             pointer += capacity;
         } while (bytes.length - pointer >= capacity);
     }
