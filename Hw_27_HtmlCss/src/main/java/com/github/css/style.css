@@ -1,0 +1,643 @@
+::-webkit-scrollbar {
+    background: whitesmoke;
+    opacity: 20%;
+    border-radius: 1px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #bfbfbf;
+    opacity: 20%;
+    border-radius: 1px;
+    border: 1px solid #e5e5e5;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #7c7c7c;
+    opacity: 100%;
+    border-radius: 1px;
+    border: 1px solid #e5e5e5;
+    width: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Adobe Hebrew";
+    background: linear-gradient(180deg, #fffcfc, #c1c1c1);
+}
+
+.title {
+    color: #e9128e;
+    border-radius: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+header {
+    display: flex;
+    background: #fffcfc;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 50px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 5px 5px 0 darkgray;
+}
+
+.headerDiv {
+    width: 48%;
+    height: 50px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 23%;
+}
+
+.menu {
+    display: flex;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    grid-gap: 5%;
+}
+
+a {
+    width: 120px;
+    height: 100%;
+}
+
+.menuText {
+    transition: 0.5s;
+    display: flex;
+    width: 120px;
+    height: 50%;
+    margin-top: 10px;
+}
+
+.menuText:hover {
+    transition: 0.5s;
+    background-color: #dbdbdb;
+    cursor: pointer;
+    display: flex;
+    width: 120px;
+    height: 50%;
+    margin-top: 10px;
+    box-shadow: -3px 0 0 0 #e9128e inset,
+    3px 0 0 0 #e9128e inset;
+}
+
+h2 {
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    margin-top: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    background: #fffcfc;
+    bottom: 0;
+    left: 0;
+    margin-top: 1%;
+    margin-left: 0%;
+    width: 100%;
+    height: 500px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    box-shadow: 0 5px 5px 0 darkgray;
+}
+
+#logoBox {
+    width: 100px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    width: 200px;
+    height: 100%;
+    border-radius: 10px;
+    margin-top: 3px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 25%;
+    width: 50%;
+    height: 100%;
+    grid-gap: 10px;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    width: 97%;
+    height: 930px;
+    border-radius: 2px;
+    margin-left: 1%;
+    grid-gap: 4%;
+    box-shadow: 0 10px 30px rgba(100, 100, 100, 0.25),
+    0 10px 20px rgba(74, 74, 74, 0.22),
+    -3px 0 0 0 #e9128e;
+    padding: 4px 10px 4px 10px;
+}
+
+#infoBox {
+    display: flex;
+    border-radius: 2px;
+    width: 92%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: url("https://blog.essaycorp.com/wp-content/uploads/2019/05/programming-assignment-help.png");
+    background-size: 100%;
+    box-shadow: 700px 0 100px -100px rgba(255, 255, 255, 0.3) inset,
+    500px 0 100px -100px rgba(255, 255, 255, 1) inset,
+    -100px 0 100px -100px rgba(255, 255, 255, 1) inset,
+    3px 3px 4px 2px #bfbfbf;
+}
+
+#infoText {
+    color: black;
+    text-shadow: 0 0 0.1em grey;
+    display: flex;
+    width: 40%;
+    height: 60%;
+    margin-top: 5%;
+    margin-left: 4%;
+}
+
+#infoImg {
+    border: 1px solid black;
+    width: 60%;
+    height: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.additionalImg {
+    width: 70px;
+    height: 70px;
+    border: 4px solid #940059;
+    border-radius: 50px;
+    margin-left: 2%;
+    margin-top: 26%;
+}
+
+#additionalInfo {
+    display: flex;
+    position: relative;
+    width: 92%;
+    height: 400px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 4px;
+}
+
+.insideInfo {
+    display: flex;
+    height: 70%;
+    margin-top: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+    grid-gap: 4px;
+    box-shadow: 1px 1px 1px 1px #bfbfbf;
+}
+
+#courses {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    height: 600%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 4px;
+}
+
+.courseTitle {
+    font-size: 150%;
+    text-align: center;
+    font-family: "Adobe Hebrew";
+    margin-top: 12px;
+    width: 99%;
+    height: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 2px groove lightgray;
+    border-radius: 2px;
+    align-items: center;
+}
+
+.imgBox {
+    width: 70%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 5px 0 #858585;
+}
+
+.courseImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.courseBox {
+    transition: 0.5s;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 500px;
+    opacity: 60%;
+    box-shadow: 1px 1px 1px 1px #bfbfbf;
+}
+
+.courseBox:hover {
+    transition: 0.5s;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 500px;
+    opacity: 100%;
+    cursor: pointer;
+    background-color: #dbdbdb;
+    box-shadow: 1px 1px 1px 1px #bfbfbf;
+}
+
+.courseBoxChild {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    grid-gap: 4%;
+}
+
+.courseText {
+    width: 90%;
+    height: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-x: hidden;
+}
+
+#reviewsBox {
+    display: flex;
+    width: 92%;
+    height: 400px;
+    margin-top: 14%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#reviewMain {
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-shadow: 0 5px 10px 1px #bfbfbf;
+}
+
+.divButton {
+    width: 5%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.scrollButton {
+    transition: 0.2s;
+    width: 100%;
+    height: 100%;
+    border: 1px solid darkgrey;
+    cursor: pointer;
+}
+
+#leftButton {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+#rightButton {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.scrollButton:hover {
+    transition: 0.2s;
+    background-color: #dbdbdb;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+#leftButton:hover {
+    transition: 0.2s;
+    box-shadow: -3px 0 0 0 #e9128e inset;
+
+}
+
+#rightButton:hover {
+    transition: 0.2s;
+    box-shadow: 3px 0 0 0 #e9128e inset;
+}
+
+.scrollButton:active {
+    transition: 0.1s;
+    background-color: #e9128e;
+    cursor: pointer;
+}
+
+.reviewBox {
+    width: 400px;
+    height: 400px;
+    background-color: #6dedff;
+    margin-left: 25%;
+    margin-right: 25%;
+    display: inline-block;
+}
+
+.reviewStudentInfo {
+    display: flex;
+    width: 80%;
+    height: 100px;
+    margin-top: 8%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 15px;
+}
+
+.reviewerImgBox {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #940059;
+    border-radius: 50%;
+    margin-top: 4px;
+    margin-left: 8px;
+    box-shadow: 0 0 10px 3px #940059;
+}
+
+.reviewerImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.reviewerInfo {
+    font-family: Verdana;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+    margin-top: 4px;
+    grid-gap: 8px;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.reviewerName {
+    margin-top: 10%;
+}
+
+.reviewerJob {
+    font-size: 80%;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 200px;
+    margin-top: 6%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+.reviewBoxText {
+
+}
+
+.contactBox {
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contactBoxChild {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 470px;
+    margin-top: 10%;
+    margin-right: auto;
+    margin-left: auto;
+    grid-gap: 8px;
+    box-shadow: 1px 1px 1px 1px #bfbfbf;
+    z-index: 4;
+}
+
+#contactsSendGood {
+    transition: 0.2s;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    margin-top: -71%;
+    height: 470px;
+    margin-right: auto;
+    margin-left: auto;
+    grid-gap: 8px;
+    background-color: #9f2064;
+    box-shadow: 1px 1px 5px 5px #bfbfbf;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#contactSentBox{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contactSentText{
+    width: 100%;
+    height: 50%;
+    margin: auto auto auto auto;
+    text-align: center;
+    color: #fffcfc;
+    font-size: 140%;
+    font-family: Verdana, serif;
+}
+
+#contactInfo {
+    color: #e9128e;
+    font-size: 150%;
+    width: 80%;
+    height: 30px;
+    margin-top: 12px;
+    margin-bottom: 1px;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 1px solid darkgrey;
+}
+
+.input {
+    transition: 0.5s;
+    margin-top: 15px;
+    width: 80%;
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    border: none;
+}
+
+.input:focus {
+    transition: 0.5s;
+    outline: none;
+    box-shadow: -3px 0 0 0 #e9128e,
+    3px 0 0 0 #e9128e;
+}
+
+#courseSelector {
+    width: 81%;
+    height: 40px;
+    margin-top: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    border: none;
+}
+
+#courseSelector:focus {
+    outline: none;
+}
+
+#text {
+    transition: 0.5s;
+    width: 80%;
+    height: 30px;
+    resize: none;
+    margin-top: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    border: none;
+}
+
+#text:focus {
+    transition: 0.5s;
+    height: 60px;
+    outline: none;
+    box-shadow: -3px 0 0 0 #e9128e,
+    3px 0 0 0 #e9128e;
+}
+
+#submitButton {
+    transition: 0.2s;
+    width: 50%;
+    height: 45px;
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid darkgrey;
+}
+
+#submitButton:hover {
+    transition: 0.2s;
+    background-color: #dbdbdb;
+    cursor: pointer;
+    box-shadow: -3px 0 0 0 #e9128e inset,
+    3px 0 0 0 #e9128e inset;
+}
+
+#submitButton:active {
+    background-color: #e9128e;
+    cursor: pointer;
+}
+
+#footerBox {
+    display: flex;
+    width: 90%;
+    height: 66%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 2%;
+}
+
+.footerInfoBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 4px;
+    box-shadow: 0 2px 4px 1px #bfbfbf;
+}
+
+.footerInfo {
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footerInfo span {
+    width: 98%;
+    height: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5px;
+    grid-gap: 6%;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.footerInfoTitle {
+    font-size: 150%;
+    color: #940059;
+}
+
+.googleMap {
+    width: 99%;
+    height: 180px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
